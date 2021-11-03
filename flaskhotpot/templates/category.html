@@ -1,0 +1,87 @@
+{% extends "layout.html" %}
+{% block content %}
+      <section>
+          <div class="container">
+               <div class="jumbotron">
+                    <div class='row'>
+
+                          <div class="col-md-2 col-md-offset-4">
+                            <div class="outer">
+                              <div class="upper">
+                                  <img src="static/pictures/복쪽.jpg">
+                              </div>
+                              <div class="lower">
+                                      <span><i class="fas fa-map-marker-alt"></i>복쪽</span>
+                              </div>                            
+                            </div>
+                          </div>
+
+                          <div class="col-md-2 col-md-offset-4">
+                            <div class="outer">
+                              <div class="upper">
+                                  <img src="static/pictures/남쪽.jpg">
+                              </div>
+                              <div class="lower">
+                                      <span><i class="fas fa-map-marker-alt"></i>남쪽</span>
+                              </div>                            
+                            </div>
+                          </div>
+
+                          <div class="col-md-2 col-md-offset-4">
+                            <div class="outer">
+                              <div class="upper">
+                                  <img src="static/pictures/서쪽.jpg">
+                              </div>
+                              <div class="lower">
+                                      <span><i class="fas fa-map-marker-alt"></i>서쪽</span>
+                              </div>                            
+                            </div>
+                          </div>
+
+                          <div class="col-md-2 col-md-offset-4">
+                            <div class="outer">
+                              <div class="upper">
+                                  <img src="static/pictures/윈구이지역.jpg">
+                              </div>
+                              <div class="lower">
+                                      <span><i class="fas fa-map-marker-alt"></i>윈구이지역</span>
+                              </div>                            
+                            </div>
+                          </div>
+
+                          <div class="col-md-2 col-md-offset-4">
+                            <div class="outer">
+                              <div class="upper">
+                                  <img src="static/pictures/기타지역.jpg">
+                              </div>
+                              <div class="lower">
+                                      <span><i class="fas fa-map-marker-alt"></i>기타지역</span>
+                              </div>                            
+                            </div>
+                          </div>
+
+
+                    </div>                   
+               </div>
+            </div>
+      </section>
+    {% for post in posts %}
+      <section>
+        <div class="container">
+          <div class="col-md-12">
+              <article class="media content-section">
+              <div class="media-body">
+              <div class="article-metadata">
+                <a class="mr-2" href="#">{{ post.author.username }}</a>
+                <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
+              </div>
+                <h2><a class="article-title" href="{{ url_for('post', post_id=post.id) }}">{{ post.title }}</a></h2>
+                <small><a class="article-title" href='#'>{{ post.region}}</a></small>
+                <p class="article-content">{{ post.content }}</p>
+              </div>
+                </article>
+          </div>
+        </div>
+      </section>
+    {% endfor %}
+{% endblock content %}
