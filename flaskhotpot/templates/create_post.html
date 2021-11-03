@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block head %}
+{{ super() }}
+<script src="{{ url_for('static', filename='ckeditor/ckeditor.js') }}"></script>
+{% endblock head %}
+
+{% block content %}
+    <div class="warpper" style="width: 700px; margin: auto">
+        <h1>글 작성</h1>
+                <form class="form-container" method="POST" action="">
+                        {{ form.hidden_tag() }}   
+                        <legend class="border-bottom mb-4">{{ legend }}</legend>
+                        
+                        {{ form.title.label }}<br>
+                        {{ form.title() }}<br><br>
+                        {{ form.region.label }}<br>
+                        {{ form.region() }}<br><br>
+                        {{ form.content.label }}<br>
+                        {{ form.content() }}
+                        <br>
+                        {{ form.submit() }}
+                </form>
+    </div>
+    {{ ckeditor.load() }}
+    {{ ckeditor.config(name='content') }}
+
+{% endblock content %}
