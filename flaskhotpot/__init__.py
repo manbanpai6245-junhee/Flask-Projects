@@ -8,6 +8,7 @@ from flask_ckeditor import CKEditor
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "4ac60774b647c110518817f4bd6bde54"
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///site.db"
+app.config["CKEDITOR_FILE_UPLOADER"] = "upload"
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)

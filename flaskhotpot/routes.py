@@ -3,6 +3,11 @@ from flaskhotpot import app, db, bcrypt
 from flaskhotpot.forms import RegistrationForm, LoginForm, PostForm
 from flaskhotpot.models import User, Post
 from flask_login import login_user, current_user, logout_user, login_required
+from flask import send_from_directory
+from flask_ckeditor import CKEditor
+
+
+import os
 
 
 @app.route("/")
@@ -126,3 +131,18 @@ def delete_post(post_id):
     db.session.commit()
     flash("글 성공적으로 삭제되었습니다!", "success")
     return redirect(url_for("home"))
+
+
+@app.route("/files/<filename>")
+def uploaded_files(filename):
+    path = "/the/uploaded/directory"
+    return send_from_directory(path, filename)
+
+
+@app.route("/upload", methods=["POST"])
+@CKEditor.uploader
+def upload():
+    f = request.files.get("upload")
+    f.save(os.path.join("/the/uploaded/directory", f.filename))
+    url = url_for("uploaded_files", filename=f.filename)
+    return url
