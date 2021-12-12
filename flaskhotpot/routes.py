@@ -135,7 +135,7 @@ def delete_post(post_id):
 
 @app.route("/files/<filename>")
 def uploaded_files(filename):
-    path = "/the/uploaded/directory"
+    path = "./flaskhotpot/uploads"
     return send_from_directory(path, filename)
 
 
@@ -143,6 +143,6 @@ def uploaded_files(filename):
 @CKEditor.uploader
 def upload():
     f = request.files.get("upload")
-    f.save(os.path.join("/the/uploaded/directory", f.filename))
+    f.save(os.path.join("./flaskhotpot/uploads", f.filename))
     url = url_for("uploaded_files", filename=f.filename)
     return url
