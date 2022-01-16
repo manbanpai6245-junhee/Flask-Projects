@@ -3,9 +3,8 @@ from flaskhotpot import app, db, bcrypt
 from flaskhotpot.forms import RegistrationForm, LoginForm, PostForm
 from flaskhotpot.models import User, Post
 from flask_login import login_user, current_user, logout_user, login_required
+from flask_ckeditor import upload_success, upload_fail
 from flask import send_from_directory
-from flask_ckeditor import CKEditor
-
 
 import os
 
@@ -133,16 +132,18 @@ def delete_post(post_id):
     return redirect(url_for("home"))
 
 
-@app.route("/files/<filename>")
+@app.route("/files/<path:filename>")
 def uploaded_files(filename):
     path = "./flaskhotpot/uploads"
     return send_from_directory(path, filename)
 
 
 @app.route("/upload", methods=["POST"])
-@CKEditor.uploader
 def upload():
     f = request.files.get("upload")
-    f.save(os.path.join("./flaskhotpot/uploads", f.filename))
+    extension = f.filename.split(".")[-1].lower()
+    if extension not in ["jpg", "gif", "png", "jpeg"]:
+        return upload_fail(message="Image only!")
+    f.save(os.path.join("./flaskhotpot/uploads/", f.filename))
     url = url_for("uploaded_files", filename=f.filename)
-    return url
+    return upload_success(url, filename=f.filename)

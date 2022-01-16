@@ -15,6 +15,7 @@ app.config["CKEDITOR_FILE_UPLOADER"] = "upload"
 basedir = os.path.abspath(os.path.dirname(__file__))
 app.config["UPLOADED_PATH"] = os.path.join(basedir, "uploads")
 
+
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
